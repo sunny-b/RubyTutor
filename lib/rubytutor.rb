@@ -1,4 +1,4 @@
-require_relative "ruby-tutor/version"
+require_relative "rubytutor/version"
 
 class RubyTutor
   LENGTH_CLASSES = [String, Array, Hash].freeze
@@ -80,7 +80,3 @@ class RubyTutor
     end
   end
 end
-
-hash = {a: 1, b: 2, c: 3}
-hash.length
-RubyTutor.explain hash
