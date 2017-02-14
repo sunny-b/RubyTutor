@@ -10,6 +10,6 @@ and accessors.
 Examples:
 Customer = Struct.new(:name, :address, :zip)
 joe = Customer.new("Joe Smith", "123 Maple, Anytown NC", 12345)
-joejr = Customer.new("Joe Smith", "123 Maple, Anytown NC", 12345)
-
-joe == joejr   #=> true
+joe.name     #=> Joe Smith
+joe.address  #=> 123 Maple, Anytown NC
+joe.zip      #=> 12345

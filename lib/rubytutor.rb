@@ -1,8 +1,10 @@
-require_relative "rubytutor/version"
+require_relative 'rubytutor/version'
 
 class RubyTutor
   LENGTH_CLASSES = [String, Array, Hash].freeze
   KEYS_VALS = [Hash].freeze
+  NO_VAL = [Hash, Proc, Struct].freeze
+  RETURN_VAL = [Proc].freeze
 
   def self.explain(object, type = nil)
     explanation = type.nil? ? base_explanation(object) : []
@@ -34,11 +36,14 @@ class RubyTutor
 
   def self.base_explanation(object)
     explain_string = []
-    class_name = object.class
-    ancestors = object.class.ancestors[1..-1].join(', ')
+    class_name = retrieve_class(object)
+    ancestors = class_name.ancestors[1..-1].join(', ')
 
     explain_string << "Instance of Class: #{class_name}"
-    explain_string << "Value: #{object}" unless KEYS_VALS.include? class_name
+    explain_string << "Return Value: #{object.call}" if RETURN_VAL.include? class_name
+    explain_string << "Source Value: #{object.source}" if class_name == Regexp
+    explain_string << "Value: #{object.nil? ? 'nil' : object}" unless NO_VAL.include? class_name
+    explain_string << "Members: #{object.members.join(', ')}" if class_name == Struct
     explain_string << "Keys: #{object.keys.join(', ')}" if KEYS_VALS.include? class_name
     explain_string << "Values: #{object.values.join(', ')}" if KEYS_VALS.include? class_name
     explain_string << "Length: #{object.length}" if LENGTH_CLASSES.include?(class_name)
@@ -50,7 +55,7 @@ class RubyTutor
   end
 
   def self.retrieve_description(object)
-    class_name = object.class
+    class_name = retrieve_class(object)
     description = ["Description:\n"]
 
     files = []
@@ -62,9 +67,7 @@ class RubyTutor
     files.each do |file_path|
       File.open(file_path) do |file|
         file.each do |line|
-          description << format(line, value:  object,
-                                      length: object.length,
-                                      class: object.class)
+          description << format(line, value: object, class: class_name)
         end
       end
     end
@@ -78,5 +81,9 @@ class RubyTutor
     rescue
       false
     end
+  end
+
+  def self.retrieve_class(object)
+    object.respond_to?(:members) ? Struct : object.class
   end
 end

@@ -9,10 +9,6 @@ often in case statements, where the cover? Range
 method is used to determine is the case value is
 included in the range.
 
-Uses:
+Examples:
 array = (1...5).to_a
 array[0..-1] => [1, 2, 3, 4]
-
-case 4
-when 1..5 then true
-end
