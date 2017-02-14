@@ -1,0 +1,16 @@
+Proc objects are blocks of code that have been
+bound to a set of local variables. Once bound,
+the code may be called in different contexts and
+still access those variables. Procs can be used
+like variables themselves and passed to functions
+as arguments. In order to execute the Proc, the
+'call' method should be used.
+
+Example:
+square = Proc.new {|n| n**2}
+
+def exec_proc(block, num)
+  block.call(num)
+end
+
+exec_proc(square), 6)    #=> 36

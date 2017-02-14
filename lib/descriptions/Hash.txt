@@ -1,0 +1,12 @@
+Hash objects are similar to Arrays in that they are
+a collection. However, Hashes are more similar to
+dictionaries in that they have keys, or terms, that
+relate to their values, or definitions. Any object can
+be used as a key, including other hashes. Hashes are
+known as associative arrays and use bracket notation
+to retrieve elements. Unlike Arrays, Hashes use the keys
+to retrieve the values.
+
+Example:
+hash = { a: 1, b: 2, c: 3 }
+hash[:a]    #=> 1

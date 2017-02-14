@@ -1,0 +1,24 @@
+A Module is a collection of methods and constants.
+Modules are often used as a way to "mixin" methods
+and constants into different classes that may not
+have similar inheritance. They are also used for
+what is known as "namespacing," where you group
+similar methods or classes. The methods in a module
+may be instance methods or module methods. Instance
+methods appear as methods in a class when the module
+is included, module methods do not. In order to mix
+a module with a class, the 'Include' method is used.
+
+Example:
+module Speak
+  def world
+    puts "Hello World"
+  end
+end
+
+class Hello
+  include Speak
+end
+
+hello = Hello.new
+hello.world    #=> "Hello World"

@@ -1,0 +1,16 @@
+Classes in Ruby are first-class objects and each
+is an instance of class Class. Each class is also
+a global constant and can be used in any part of a
+program. Class names are capitalized to differentiate
+themselves and to show that they are constants.
+Creating new classes is simple and fundamental to
+object oriented programming using Ruby.
+
+Example:
+class Name
+  def initialize
+    print "Creating a new instance of #{self.name}"
+  end
+end
+
+Name.new     #=> "Creating a new instance of Name"

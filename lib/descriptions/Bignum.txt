@@ -1,0 +1,9 @@
+Bignum objects hold integers outside the range of
+Fixnum. Bignum objects are created automatically
+when integer calculations would otherwise overflow
+a Fixnum. When a calculation involving Bignum objects
+returns a result that will fit in a Fixnum, the
+result is automatically converted. Bignum parameter
+passing works with references to the object. This is
+different from the Fixnum class, where the object
+itself is passed.

@@ -1,0 +1,15 @@
+Fixnum objects hold Integer values. If any integer
+exceeds the Fixnum maximum value on your machine,
+it will be converted to a Bignum. Fixnum objects
+have immediate value. This means that when they are
+assigned or passed as parameters, the actual object
+is passed, rather than a reference to that object.
+Fixnum objects are also immutable, meaning that the
+value assigned to that object id will not change no
+matter what methods or operations executed. Methods
+such as '+' or '-' return a new Fixnum and do not
+affect the original value.
+
+As a sidenote: any mathematical operations the involve
+two Integers will return an Integer. Meaning that any
+decimals that would normally be left over will be rounded.

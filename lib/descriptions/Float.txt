@@ -1,0 +1,5 @@
+Float objects represent inexact real numbers and can
+contain decimal values. Arithmetic with Float point numbers
+can be inexact and should be cautioned. Any mathematical
+operations involving a Float number will always return
+a Float number.

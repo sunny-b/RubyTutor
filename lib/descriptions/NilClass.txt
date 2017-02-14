@@ -1,0 +1,5 @@
+The NilClass is the class that houses the singleton
+object 'nil'. The NilClass is Ruby's version of null
+which can be found in other languages such as Java or C.
+Everything is an object in Ruby, so even 'nil' has
+methods that it can take advantage of.

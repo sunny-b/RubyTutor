@@ -1,0 +1,4 @@
+A String object is an expression that can hold
+letters, numbers and all sorts of different characters,
+as long as they are surrounded by single ('')
+or double ("") quotes.

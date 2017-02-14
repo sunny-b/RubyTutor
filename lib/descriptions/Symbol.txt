@@ -1,0 +1,9 @@
+Symbol objects represent names inside the Ruby
+interpreter. They are generated using the :name
+literal syntax, and by the various to_sym methods.
+While :'string' is also an acceptable form of a
+symbol, this syntax is rarely used and generally
+frowned upon. Symbols are also known as immutable,
+meaning that a symbol cannot be changed when it is
+created, only replaced. This makes Symbols ideal as
+keys in Hashes.

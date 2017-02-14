@@ -1,0 +1,15 @@
+A Struct is a convenient way to bundle a number of
+attributes together, using accessor methods, without
+having to write an explicit class. The Struct class
+is a generator of specific classes, each one of which
+is defined to hold a set of variables and their
+accessors. While Modules house behaviors in instance
+methods, Structs house mainly behaviors in variables
+and accessors.
+
+Examples:
+Customer = Struct.new(:name, :address, :zip)
+joe = Customer.new("Joe Smith", "123 Maple, Anytown NC", 12345)
+joejr = Customer.new("Joe Smith", "123 Maple, Anytown NC", 12345)
+
+joe == joejr   #=> true

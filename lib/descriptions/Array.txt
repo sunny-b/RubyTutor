@@ -1,0 +1,10 @@
+Arrays are ordered and integer-indexed collections
+of objects. The indexes of Arrays are 0 based, meaning
+that they start at 0. Negative indexes count back from
+the last elements in the collection. -1 indicates the
+last element, -2 is the second to last, and so on. An item
+is retrieved from the collection using bracket notation ([]).
+
+Example:
+arr = [1, 2, 3]
+arr[0]    #=> 1

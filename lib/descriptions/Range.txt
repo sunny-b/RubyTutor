@@ -1,0 +1,18 @@
+A Range object represents an interval—a set of
+values with a beginning and an end. Ranges may
+be constructed using the s..e and s...e literals.
+Ranges constructed using .. run from the beginning to
+the end inclusively. Those created using ... exclude
+the end value. When used as an iterator, ranges return
+each value in the sequence. Range objects are used
+often in case statements, where the cover? Range
+method is used to determine is the case value is
+included in the range.
+
+Uses:
+array = (1...5).to_a
+array[0..-1] => [1, 2, 3, 4]
+
+case 4
+when 1..5 then true
+end
