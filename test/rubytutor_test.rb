@@ -10,8 +10,28 @@ class RubyTutorTest < Minitest::Test
     refute_nil RubyTutor::VERSION
   end
 
-  def test_explain_string
+  def test_simple_explain
     assert_nil RubyTutor.explain 'a'
+    assert $stdout.string.match(/Class: String/)
+    assert $stdout.string.match(/Value: a/)
+    assert $stdout.string.match(/Length: 1/)
+    assert_nil $stdout.string.match(/instance of the String class./)
+    assert_nil $stdout.string.match(/A String object is an/)
+    assert_nil $stdout.string.match(/Type RubyTutor.available_methods String/)
+  end
+
+  def test_simple_description
+    assert_nil RubyTutor.describe 'a'
+    assert_nil $stdout.string.match(/Class: String/)
+    assert_nil $stdout.string.match(/Value: a/)
+    assert_nil $stdout.string.match(/Length: 1/)
+    assert $stdout.string.match(/instance of the String class./)
+    assert $stdout.string.match(/A String object is an/)
+    assert $stdout.string.match(/Type RubyTutor.available_methods String/)
+  end
+
+  def test_explain_full_string
+    assert_nil RubyTutor.explain_full 'a'
     assert $stdout.string.match(/Class: String/)
     assert $stdout.string.match(/Value: a/)
     assert $stdout.string.match(/Length: 1/)
@@ -20,8 +40,8 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods String/)
   end
 
-  def test_explain_array
-    assert_nil RubyTutor.explain [1, 2, 3]
+  def test_explain_full_array
+    assert_nil RubyTutor.explain_full [1, 2, 3]
     assert $stdout.string.match(/Class: Array/)
     assert $stdout.string.match(/Value: \[1, 2, 3\]/)
     assert $stdout.string.match(/Length: 3/)
@@ -30,9 +50,9 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods Array/)
   end
 
-  def test_explain_hash
+  def test_explain_full_hash
     hash = {a: 1, b: 2, c: 3}
-    assert_nil RubyTutor.explain hash
+    assert_nil RubyTutor.explain_full hash
     assert $stdout.string.match(/Class: Hash/)
     assert $stdout.string.match(/Keys: a, b, c/)
     assert $stdout.string.match(/Values: 1, 2, 3/)
@@ -42,8 +62,8 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods Hash/)
   end
 
-  def test_explain_false_class
-    assert_nil RubyTutor.explain false
+  def test_explain_full_false_class
+    assert_nil RubyTutor.explain_full false
     assert $stdout.string.match(/Class: FalseClass/)
     assert $stdout.string.match(/Value: false/)
     assert $stdout.string.match(/Mutable\? No/)
@@ -52,8 +72,8 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods FalseClass/)
   end
 
-  def test_explain_true_class
-    assert_nil RubyTutor.explain true
+  def test_explain_full_true_class
+    assert_nil RubyTutor.explain_full true
     assert $stdout.string.match(/Class: TrueClass/)
     assert $stdout.string.match(/Value: true/)
     assert $stdout.string.match(/Mutable\? No/)
@@ -62,8 +82,8 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods TrueClass/)
   end
 
-  def test_explain_nil
-    assert_nil RubyTutor.explain nil
+  def test_explain_full_nil
+    assert_nil RubyTutor.explain_full nil
     assert $stdout.string.match(/Class: NilClass/)
     assert $stdout.string.match(/Value: nil/)
     assert $stdout.string.match(/Mutable\? No/)
@@ -72,8 +92,8 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods NilClass/)
   end
 
-  def test_explain_fixnum
-    assert_nil RubyTutor.explain 5
+  def test_explain_full_fixnum
+    assert_nil RubyTutor.explain_full 5
     assert $stdout.string.match(/Class: Fixnum/)
     assert $stdout.string.match(/Value: 5/)
     assert $stdout.string.match(/Mutable\? No/)
@@ -82,9 +102,9 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods Fixnum/)
   end
 
-  def test_explain_bignum
+  def test_explain_full_bignum
     bignum = (2**(0.size * 8 -2))
-    assert_nil RubyTutor.explain bignum
+    assert_nil RubyTutor.explain_full bignum
     assert $stdout.string.match(/Class: Bignum/)
     assert $stdout.string.match(/Value: 4611686018427387904/)
     assert $stdout.string.match(/Mutable\? No/)
@@ -93,8 +113,8 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods Bignum/)
   end
 
-  def test_explain_symbol
-    assert_nil RubyTutor.explain :symbol
+  def test_explain_full_symbol
+    assert_nil RubyTutor.explain_full :symbol
     assert $stdout.string.match(/Class: Symbol/)
     assert $stdout.string.match(/Value: symbol/)
     assert $stdout.string.match(/Mutable\? No/)
@@ -103,8 +123,8 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods Symbol/)
   end
 
-  def test_explain_range
-    assert_nil RubyTutor.explain (1..5)
+  def test_explain_full_range
+    assert_nil RubyTutor.explain_full (1..5)
     assert $stdout.string.match(/Class: Range/)
     assert $stdout.string.match(/Value: 1\.\.5/)
     assert $stdout.string.match(/Mutable\? Yes/)
@@ -113,8 +133,8 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods Range/)
   end
 
-  def test_explain_float
-    assert_nil RubyTutor.explain 5.5
+  def test_explain_full_float
+    assert_nil RubyTutor.explain_full 5.5
     assert $stdout.string.match(/Class: Float/)
     assert $stdout.string.match(/Value: 5\.5/)
     assert $stdout.string.match(/Mutable\? No/)
@@ -123,8 +143,8 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods Float/)
   end
 
-  def test_explain_class
-    assert_nil RubyTutor.explain Class
+  def test_explain_full_class
+    assert_nil RubyTutor.explain_full Class
     assert $stdout.string.match(/Class: Class/)
     assert $stdout.string.match(/Value: Class/)
     assert $stdout.string.match(/Mutable\? Yes/)
@@ -133,8 +153,8 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods Class/)
   end
 
-  def test_explain_module
-    assert_nil RubyTutor.explain Comparable
+  def test_explain_full_module
+    assert_nil RubyTutor.explain_full Comparable
     assert $stdout.string.match(/Class: Module/)
     assert $stdout.string.match(/Value: Comparable/)
     assert $stdout.string.match(/Mutable\? Yes/)
@@ -143,9 +163,9 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods Module/)
   end
 
-  def test_explain_module
+  def test_explain_full_module
     new_proc = Proc.new { 5 }
-    assert_nil RubyTutor.explain new_proc
+    assert_nil RubyTutor.explain_full new_proc
     assert $stdout.string.match(/Class: Proc/)
     assert $stdout.string.match(/Return Value: 5/)
     assert $stdout.string.match(/Mutable\? Yes/)
@@ -154,9 +174,9 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods Proc/)
   end
 
-  def test_explain_struct
+  def test_explain_full_struct
     customer = Struct.new(:name, :address, :zip)
-    assert_nil RubyTutor.explain customer
+    assert_nil RubyTutor.explain_full customer
     assert $stdout.string.match(/Class: Struct/)
     assert $stdout.string.match(/Members: name, address, zip/)
     assert $stdout.string.match(/Mutable\? Yes/)
@@ -165,14 +185,32 @@ class RubyTutorTest < Minitest::Test
     assert $stdout.string.match(/Type RubyTutor.available_methods Struct/)
   end
 
-  def test_explain_regexp
-    assert_nil RubyTutor.explain /([A-Z])\w+/
+  def test_explain_full_regexp
+    assert_nil RubyTutor.explain_full /([A-Z])\w+/
     assert $stdout.string.match(/Class: Regexp/)
     assert $stdout.string.match(/Source Value: \(\[A-Z\]\)\\w+/)
     assert $stdout.string.match(/Mutable\? Yes/)
     assert $stdout.string.match(/instance of the Regexp class./)
     assert $stdout.string.match(/A Regexp holds a regular expression/)
     assert $stdout.string.match(/Type RubyTutor.available_methods Regexp/)
+  end
+
+  def test_explain_full_unsupported_expression
+    io = StringIO.new
+    assert_nil RubyTutor.explain_full io
+    assert $stdout.string.match(/No further description available at this time./)
+  end
+
+  def test_explain_full_invalid_input
+    assert_raises(NameError) do
+      RubyTutor.explain_full asdfg
+    end
+  end
+
+  def test_explain_full_empty_input
+    assert_raises(ArgumentError) do
+      RubyTutor.explain_full
+    end
   end
 
   def test_available_methods

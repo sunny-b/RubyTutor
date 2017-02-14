@@ -6,10 +6,16 @@ class RubyTutor
   NO_VAL = [Hash, Proc, Struct].freeze
   RETURN_VAL = [Proc].freeze
 
-  def self.explain(object, type = nil)
-    explanation = type.nil? ? base_explanation(object) : []
+  def self.explain_full(object, type = nil)
+    puts full_explanation(object, type).join("\n")
+  end
 
-    puts explanation.join("\n")
+  def self.describe(object, type = nil)
+    puts retrieve_description(object, type)
+  end
+
+  def self.explain(object, type = nil)
+    puts retrieve_explanation(object, type).join("\n")
   end
 
   def self.available_methods(object, letter = nil)
@@ -34,8 +40,9 @@ class RubyTutor
     methods_string += method_names.join("\n").to_s + "\n\n"
   end
 
-  def self.base_explanation(object)
+  def self.retrieve_explanation(object, type = nil)
     explain_string = []
+    express_type = interpret(type)
     class_name = retrieve_class(object)
     ancestors = class_name.ancestors[1..-1].join(', ')
 
@@ -51,27 +58,23 @@ class RubyTutor
     explain_string << "Object ID: #{object.object_id}"
     explain_string << "Inhertits From: #{ancestors}"
     explain_string << ""
-    explain_string << retrieve_description(object)
   end
 
-  def self.retrieve_description(object)
+  def self.full_explanation(object, type)
+    full_string = []
+
+    full_string << retrieve_explanation(object, type)
+    full_string << retrieve_description(object, type)
+    full_string.flatten
+  end
+
+  def self.retrieve_description(object, type = nil)
     class_name = retrieve_class(object)
     description = ["Description:\n"]
-
     files = []
-    files << File.expand_path("../descriptions/intro.txt", __FILE__)
-    files << File.expand_path("../descriptions/#{class_name}.txt", __FILE__)
-    files << File.expand_path("../descriptions/last.txt", __FILE__)
 
-
-    files.each do |file_path|
-      File.open(file_path) do |file|
-        file.each do |line|
-          description << format(line, value: object, class: class_name)
-        end
-      end
-    end
-
+    find(files, class_name)
+    extract_contents(files, description, object, class_name)
     description.join
   end
 
@@ -83,7 +86,31 @@ class RubyTutor
     end
   end
 
+  def self.interpret(type)
+    return nil unless type
+    type.split.map(&:capitalize).join(' ')
+  end
+
   def self.retrieve_class(object)
     object.respond_to?(:members) ? Struct : object.class
+  end
+
+  def self.extract_contents(files, description, object, class_name)
+    files.each do |file_path|
+      File.open(file_path) do |file|
+        file.each do |line|
+          description << format(line, value: object, class: class_name)
+        end
+      end
+    end
+  end
+
+  def self.find(files, class_name)
+    class_file = File.expand_path("../descriptions/#{class_name}.txt", __FILE__)
+    blank_file = File.expand_path("../descriptions/blank.txt", __FILE__)
+
+    files << File.expand_path("../descriptions/intro.txt", __FILE__)
+    files << (File.file?(class_file) ? class_file : blank_file)
+    files << File.expand_path("../descriptions/last.txt", __FILE__)
   end
 end
