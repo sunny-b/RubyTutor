@@ -55,7 +55,7 @@ class RubyTutor
 
     text << "Mutable? #{object.frozen? ? 'No' : 'Yes'}"
     text << "Object ID: #{object.object_id}"
-    text << "Inhertits From: #{ancestors}"
+    text << "Inherits From: #{ancestors}"
     text << ''
   end
 
