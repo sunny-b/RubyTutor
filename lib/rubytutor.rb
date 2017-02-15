@@ -69,7 +69,7 @@ class RubyTutor
     text << "Keys: #{object.keys.join(', ')}" if keys?(class_name)
     text << "Values: #{object.values.join(', ')}" if keys?(class_name)
     text << "Length: #{object.length}" if LENGTH_CLASSES.include?(class_name)
-    text.join
+    text.join("\n")
   end
 
   def self.keys?(class_name)

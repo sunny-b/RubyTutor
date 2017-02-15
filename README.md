@@ -37,7 +37,8 @@ Here is a sample output:
 RubyTutor.explain_full 'string'
 
 # >> Instance of Class: String
-# >> Value: stringLength: 6
+# >> Value: string
+# >> Length:6
 # >> Mutable? Yes
 # >> Object ID: 70179170680460
 # >> Inhertits From: Comparable, Object, Kernel, BasicObject
@@ -62,7 +63,8 @@ Examples:
 RubyTutor.explain 'string'
 
 # >> Instance of Class: String
-# >> Value: stringLength: 6
+# >> Value: string
+# >> Length: 6
 # >> Mutable? Yes
 # >> Object ID: 70179170680460
 # >> Inhertits From: Comparable, Object, Kernel, BasicObject
@@ -78,6 +80,8 @@ RubyTutor.describe 'string'
 # >> Type RubyTutor.available_methods String
 # >> to see all of the methods available.
 ```
+
+All descriptions were copied from [Ruby-Docs](https://ruby-doc.org/)
 
 ### available_methods
 
