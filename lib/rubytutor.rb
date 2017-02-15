@@ -6,16 +6,16 @@ class RubyTutor
   NO_VAL = [Hash, Proc, Struct].freeze
   RETURN_VAL = [Proc].freeze
 
-  def self.explain_full(object, type = nil)
-    puts full_explanation(object, type).join("\n")
+  def self.explain_full(object)
+    puts full_explanation(object).join("\n")
   end
 
-  def self.describe(object, type = nil)
-    puts retrieve_description(object, type)
+  def self.describe(object)
+    puts retrieve_description(object)
   end
 
-  def self.explain(object, type = nil)
-    puts retrieve_explanation(object, type).join("\n")
+  def self.explain(object)
+    puts retrieve_explanation(object).join("\n")
   end
 
   def self.available_methods(object, letter = nil)
@@ -40,9 +40,8 @@ class RubyTutor
     methods_string += method_names.join("\n").to_s + "\n\n"
   end
 
-  def self.retrieve_explanation(object, type = nil)
+  def self.retrieve_explanation(object)
     explain_string = []
-    express_type = interpret(type)
     class_name = retrieve_class(object)
     ancestors = class_name.ancestors[1..-1].join(', ')
 
@@ -60,15 +59,15 @@ class RubyTutor
     explain_string << ""
   end
 
-  def self.full_explanation(object, type)
+  def self.full_explanation(object)
     full_string = []
 
-    full_string << retrieve_explanation(object, type)
-    full_string << retrieve_description(object, type)
+    full_string << retrieve_explanation(object)
+    full_string << retrieve_description(object)
     full_string.flatten
   end
 
-  def self.retrieve_description(object, type = nil)
+  def self.retrieve_description(object)
     class_name = retrieve_class(object)
     description = ["Description:\n"]
     files = []
@@ -84,11 +83,6 @@ class RubyTutor
     rescue
       false
     end
-  end
-
-  def self.interpret(type)
-    return nil unless type
-    type.split.map(&:capitalize).join(' ')
   end
 
   def self.retrieve_class(object)
