@@ -19,21 +19,23 @@ class RubyTutor
     puts retrieve_explanation(object).join("\n")
   end
 
-  def self.available_methods(object, letter = nil)
+  def self.available_methods(object, filter_str = nil)
     class_name = object.class == Class ? object : object.class
-    methods = retrieve_methods(class_name, letter)
+    methods = retrieve_methods(class_name, filter_str)
 
     puts methods
   end
 
   private_class_method
 
-  def self.retrieve_methods(class_name, letter = nil)
+  def self.retrieve_methods(class_name, filter_str = nil)
     method_names = class_name.methods.sort
 
-    if valid?(letter)
+    if valid?(filter_str)
+      last_index = filter_str.length
+
       method_names = method_names.map(&:to_s).select do |method|
-        method[0] == letter
+        method[0...last_index] == filter_str
       end
     end
 
@@ -56,7 +58,6 @@ class RubyTutor
     string << "Object ID: #{object.object_id}"
     string << "Inhertits From: #{ancestors}"
     string << ''
-    string.flatten
   end
 
   def self.variable_text(object, class_name, value)
@@ -68,6 +69,7 @@ class RubyTutor
     text << "Keys: #{object.keys.join(', ')}" if keys?(class_name)
     text << "Values: #{object.values.join(', ')}" if keys?(class_name)
     text << "Length: #{object.length}" if LENGTH_CLASSES.include?(class_name)
+    text.join
   end
 
   def self.keys?(class_name)
@@ -93,8 +95,7 @@ class RubyTutor
   end
 
   def self.valid?(letter)
-    letter.length == 1 && letter.downcase.match(/[a-z]/)
-  rescue false
+    letter.downcase.match(/[a-z]/) rescue false
   end
 
   def self.retrieve_class(object)

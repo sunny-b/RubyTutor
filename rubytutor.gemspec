@@ -8,9 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = RubyTutor::VERSION
   spec.authors       = ["Sunny"]
   spec.email         = ["sjbeatteay@gmail.com"]
-
-  spec.summary       = 'a short summary'
-  spec.description   = 'a simple hello world application'
+  spec.summary       = 'An irb tool to help new developers use Ruby'
+  spec.description   = 'A console tool to help new developers and developers new to Ruby.'
   spec.homepage      = "https://github.com/sunny-b/RubyTutor"
   spec.license       = "MIT"
 
