@@ -54,7 +54,7 @@ RubyTutor.explain_full 'string'
 
 # >> Instance of Class: String
 # >> Value: string
-# >> Length:6
+# >> Length: 6
 # >> Mutable? Yes
 # >> Object ID: 70179170680460
 # >> Inhertits From: Comparable, Object, Kernel, BasicObject
@@ -97,7 +97,7 @@ RubyTutor.describe 'string'
 # >> to see all of the methods available.
 ```
 
-All descriptions were copied from [Ruby-Docs](https://ruby-doc.org/)
+All descriptions were copied and edited from [Ruby-Docs](https://ruby-doc.org/)
 
 ### available_methods
 
