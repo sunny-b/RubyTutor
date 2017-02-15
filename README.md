@@ -101,6 +101,10 @@ RubyTutor.describe 'string'
 
 All descriptions were copied and edited from [Ruby-Docs](https://ruby-doc.org/)
 
+Sidenote: When passing in a Hash, use the parentheses notation to avoid an error.
+
+`RubyTutor.explain({a: 1, b: 2, c: 3})`
+
 ### available_methods
 
 Lastly, `available_methods` outputs all the available methods for the object passed in. `available_methods` also has an optional filter you can pass in. The filter must be a string and the filter only corresponds to the beginning of the method name. In other words, a filter of `'to'` will return all the methods that begin with `'to'`.
