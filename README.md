@@ -4,7 +4,23 @@ RubyTutor is an irb tool to help new developers and developers new to using Ruby
 
 ## Installation
 
-Add this line to your application's Gemfile:
+### IRB
+
+In order to use it, simply install it:
+
+    $ gem install rubytutor
+
+Then go into irb and require it:
+
+    $ irb
+    2.3.3 :001 > require 'rubytutor'
+    => true
+
+### Other Uses
+
+While RubyTutor is meant to be an irb tool, far be it from me to disallow others from finding other uses for it.
+
+If you wish to add RubyTutor to a project, add this line to your application's Gemfile:
 
 ```ruby
 gem 'rubytutor'

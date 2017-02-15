@@ -1,2 +1,3 @@
+
 Type RubyTutor.available_methods %{class}
 to see all of the methods available.
