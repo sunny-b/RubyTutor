@@ -2,11 +2,6 @@ require_relative 'rubytutor/version'
 
 # RubyTutor main class
 class RubyTutor
-  LENGTH_CLASSES = [String, Array, Hash].freeze
-  KEYS_VALS = [Hash].freeze
-  NO_VAL = [Hash, Proc, Struct].freeze
-  RETURN_VAL = [Proc].freeze
-
   def self.explain_full(object)
     puts full_explanation(object).join("\n")
   end
@@ -51,29 +46,32 @@ class RubyTutor
   end
 
   def self.construct_explain(object, class_name, ancestors, value)
-    string = []
-    string << "Instance of Class: #{class_name}"
-    string << variable_text(object, class_name, value)
-    string << "Mutable? #{object.frozen? ? 'No' : 'Yes'}"
-    string << "Object ID: #{object.object_id}"
-    string << "Inhertits From: #{ancestors}"
-    string << ''
-  end
-
-  def self.variable_text(object, class_name, value)
     text = []
-    text << "Return Value: #{object.call}" if RETURN_VAL.include? class_name
-    text << "Source Value: #{object.source}" if class_name == Regexp
-    text << "Value: #{value}" unless NO_VAL.include? class_name
-    text << "Members: #{object.members.join(', ')}" if class_name == Struct
-    text << "Keys: #{object.keys.join(', ')}" if keys?(class_name)
-    text << "Values: #{object.values.join(', ')}" if keys?(class_name)
-    text << "Length: #{object.length}" if LENGTH_CLASSES.include?(class_name)
-    text.join("\n")
+
+    text << "Instance of Class: #{class_name}"
+    text << "Value: #{value}"
+
+    variable_text(object, text)
+
+    text << "Mutable? #{object.frozen? ? 'No' : 'Yes'}"
+    text << "Object ID: #{object.object_id}"
+    text << "Inhertits From: #{ancestors}"
+    text << ''
   end
 
-  def self.keys?(class_name)
-    KEYS_VALS.include? class_name
+  # Not pretty, but this is the method that determines which strings will go
+  # Into each 'explain' or 'explain_full' call
+  def self.variable_text(object, text)
+    text << "Return Value: #{object.call}" if need?(object, :call)
+    text << "Source Value: #{object.source}" if need?(object, :source)
+    text << "Members: #{object.members.join(', ')}" if need?(object, :members)
+    text << "Keys: #{object.keys.join(', ')}" if need?(object, :keys)
+    text << "Values: #{object.values.join(', ')}" if need?(object, :values)
+    text << "Length: #{object.length}" if need?(object, :length)
+  end
+
+  def self.need?(object, method_symbol)
+    object.respond_to?(method_symbol)
   end
 
   def self.full_explanation(object)
@@ -95,7 +93,7 @@ class RubyTutor
   end
 
   def self.valid?(letter)
-    letter.downcase.match(/[a-z]/) rescue false
+    letter.respond_to?(:match) ? letter.downcase.match(/[a-z]/) : false
   end
 
   def self.retrieve_class(object)
