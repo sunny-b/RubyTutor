@@ -105,6 +105,8 @@ All descriptions were copied and edited from [Ruby-Docs](https://ruby-doc.org/)
 
 Lastly, `available_methods` outputs all the available methods for the object passed in. `available_methods` also has an optional filter you can pass in. The filter must be a string and the filter only corresponds to the beginning of the method name. In other words, a filter of `'to'` will return all the methods that begin with `'to'`.
 
+If another object is used for the filter instead of a string, the program will ignore it and return all available methods for the object passed in.
+
 Example output:
 
 ```ruby
@@ -164,7 +166,7 @@ The classes that are currently supported and have descriptions when `RubyTutor.d
 * Symbol
 * TrueClass
 
-Any other class will return `No further description available at this time.`
+Any other class will return `No further description available at this time.` as a description.
 
 ## Development
 
