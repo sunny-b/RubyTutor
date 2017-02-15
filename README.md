@@ -27,6 +27,8 @@ RubyTutor has 4 class methods that can be useful to developers:
 * `RubyTutor.describe(object)`
 * `RubyTutor.available_methods(object, filter)`
 
+### explain_full
+
 `explain_full` outputs a list of attributes pertaining to the object passed in.
 
 Here is a sample output:
@@ -49,6 +51,8 @@ RubyTutor.explain_full 'string'
 # >> Type RubyTutor.available_methods String
 # >> to see all of the methods available.
 ```
+
+### explain/describe
 
 `explain` outputs the first half of `explain_full` while `describe` outputs the second half of `explain_full`.
 
@@ -74,6 +78,8 @@ RubyTutor.describe 'string'
 # >> Type RubyTutor.available_methods String
 # >> to see all of the methods available.
 ```
+
+### available_methods
 
 Lastly, `available_methods` outputs all the available methods for the object passed in. `available_methods` also has an optional filter you can pass in. The filter must be a string and the filter only corresponds to the beginning of the method name. In other words, a filter of `'to'` will return all the methods that begin with `'to'`.
 
@@ -115,6 +121,29 @@ RubyTutor.available_methods BasicObject, 'al'
 # >> allocate
 ```
 
+## Classes Supported
+
+The classes that are currently supported and have descriptions when `RubyTutor.describe` is called are:
+
+* Array
+* Bignum
+* Class
+* FalseClass
+* Fixnum
+* Float
+* Hash
+* Module
+* NilClass
+* Proc
+* Range
+* Regexp
+* String
+* Struct
+* Symbol
+* TrueClass
+
+Any other class will return `No further description available at this time.`
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -123,7 +152,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/tutor.
+Bug reports and pull requests are welcome on GitHub at https://github.com/sunny-b/RubyTutor.
 
 
 ## License
