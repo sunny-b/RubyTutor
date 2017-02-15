@@ -65,6 +65,7 @@ RubyTutor.explain_full 'string'
 # >> letters, numbers and all sorts of different characters,
 # >> as long as they are surrounded by single ('')
 # >> or double ("") quotes.
+# >>
 # >> Type RubyTutor.available_methods String
 # >> to see all of the methods available.
 ```
@@ -93,6 +94,7 @@ RubyTutor.describe 'string'
 # >> letters, numbers and all sorts of different characters,
 # >> as long as they are surrounded by single ('')
 # >> or double ("") quotes.
+# >>
 # >> Type RubyTutor.available_methods String
 # >> to see all of the methods available.
 ```
