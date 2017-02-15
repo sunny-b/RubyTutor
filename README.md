@@ -57,7 +57,7 @@ RubyTutor.explain_full 'string'
 # >> Length: 6
 # >> Mutable? Yes
 # >> Object ID: 70179170680460
-# >> Inhertits From: Comparable, Object, Kernel, BasicObject
+# >> Inherits From: Comparable, Object, Kernel, BasicObject
 # >>
 # >> Description:
 # >> This object is an instance of the String class.
@@ -84,7 +84,7 @@ RubyTutor.explain 'string'
 # >> Length: 6
 # >> Mutable? Yes
 # >> Object ID: 70179170680460
-# >> Inhertits From: Comparable, Object, Kernel, BasicObject
+# >> Inherits From: Comparable, Object, Kernel, BasicObject
 
 RubyTutor.describe 'string'
 
