@@ -1,5 +1,6 @@
 require_relative 'rubytutor/version'
 
+# RubyTutor main class
 class RubyTutor
   LENGTH_CLASSES = [String, Array, Hash].freeze
   KEYS_VALS = [Hash].freeze
@@ -25,10 +26,9 @@ class RubyTutor
     puts methods
   end
 
-  private
+  private_class_method
 
   def self.retrieve_methods(class_name, letter = nil)
-    methods_string = "Available Methods: \n"
     method_names = class_name.methods.sort
 
     if valid?(letter)
@@ -37,26 +37,41 @@ class RubyTutor
       end
     end
 
-    methods_string += method_names.join("\n").to_s + "\n\n"
+    "Available Methods: \n" + method_names.join("\n").to_s + "\n\n"
   end
 
   def self.retrieve_explanation(object)
-    explain_string = []
     class_name = retrieve_class(object)
     ancestors = class_name.ancestors[1..-1].join(', ')
+    value = object.nil? ? 'nil' : object
 
-    explain_string << "Instance of Class: #{class_name}"
-    explain_string << "Return Value: #{object.call}" if RETURN_VAL.include? class_name
-    explain_string << "Source Value: #{object.source}" if class_name == Regexp
-    explain_string << "Value: #{object.nil? ? 'nil' : object}" unless NO_VAL.include? class_name
-    explain_string << "Members: #{object.members.join(', ')}" if class_name == Struct
-    explain_string << "Keys: #{object.keys.join(', ')}" if KEYS_VALS.include? class_name
-    explain_string << "Values: #{object.values.join(', ')}" if KEYS_VALS.include? class_name
-    explain_string << "Length: #{object.length}" if LENGTH_CLASSES.include?(class_name)
-    explain_string << "Mutable? #{object.frozen? ? 'No' : 'Yes'}"
-    explain_string << "Object ID: #{object.object_id}"
-    explain_string << "Inhertits From: #{ancestors}"
-    explain_string << ""
+    construct_explain(object, class_name, ancestors, value)
+  end
+
+  def self.construct_explain(object, class_name, ancestors, value)
+    string = []
+    string << "Instance of Class: #{class_name}"
+    string << variable_text(object, class_name, value)
+    string << "Mutable? #{object.frozen? ? 'No' : 'Yes'}"
+    string << "Object ID: #{object.object_id}"
+    string << "Inhertits From: #{ancestors}"
+    string << ''
+    string.flatten
+  end
+
+  def self.variable_text(object, class_name, value)
+    text = []
+    text << "Return Value: #{object.call}" if RETURN_VAL.include? class_name
+    text << "Source Value: #{object.source}" if class_name == Regexp
+    text << "Value: #{value}" unless NO_VAL.include? class_name
+    text << "Members: #{object.members.join(', ')}" if class_name == Struct
+    text << "Keys: #{object.keys.join(', ')}" if keys?(class_name)
+    text << "Values: #{object.values.join(', ')}" if keys?(class_name)
+    text << "Length: #{object.length}" if LENGTH_CLASSES.include?(class_name)
+  end
+
+  def self.keys?(class_name)
+    KEYS_VALS.include? class_name
   end
 
   def self.full_explanation(object)
@@ -78,11 +93,8 @@ class RubyTutor
   end
 
   def self.valid?(letter)
-    begin
-      letter.length == 1 && !!letter.downcase.match(/[a-z]/)
-    rescue
-      false
-    end
+    letter.length == 1 && letter.downcase.match(/[a-z]/)
+  rescue false
   end
 
   def self.retrieve_class(object)
@@ -101,10 +113,10 @@ class RubyTutor
 
   def self.find(files, class_name)
     class_file = File.expand_path("../descriptions/#{class_name}.txt", __FILE__)
-    blank_file = File.expand_path("../descriptions/blank.txt", __FILE__)
+    blank_file = File.expand_path('../descriptions/blank.txt', __FILE__)
 
-    files << File.expand_path("../descriptions/intro.txt", __FILE__)
+    files << File.expand_path('../descriptions/intro.txt', __FILE__)
     files << (File.file?(class_file) ? class_file : blank_file)
-    files << File.expand_path("../descriptions/last.txt", __FILE__)
+    files << File.expand_path('../descriptions/last.txt', __FILE__)
   end
 end
