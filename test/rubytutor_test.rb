@@ -231,5 +231,3 @@ class RubyTutorTest < Minitest::Test
     $stdout = STDOUT
   end
 end
-
-new_proc = Proc.new { 5 }

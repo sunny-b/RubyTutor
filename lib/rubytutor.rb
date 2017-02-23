@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require_relative 'rubytutor/version'
 
 # RubyTutor main class
