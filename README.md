@@ -1,5 +1,7 @@
 # RubyTutor
 
+![ruby tutor](./rubytutor.png)
+
 RubyTutor is an irb tool to help new developers and developers new to using Ruby on the fundamentals of the language.
 
 ## Installation
